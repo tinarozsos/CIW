@@ -1,0 +1,223 @@
+---
+title: "CIW Math refresher"
+author: "Tina Rozsos"
+institute: "VU Amsterdam"
+date: "2024-10-16"
+date-format: long
+format:
+  revealjs: 
+    theme: default
+    logo: assets/VU_logo.png
+    footer: "CIW Math refresher"
+    transition: fade
+    controls: true
+    embed-resources: true
+    smaller: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE, error = FALSE)
+```
+```{r}
+library(tidyverse)
+theme_set(theme_minimal(base_size = 16))
+```
+
+## Math and stats refresher
+
+### Overall goal
+
+- Revise the math & stats concepts you need for the *Choices, Inequality, and Welfare* course
+- Focus is on 
+  - intuitive understanding of concepts
+  - ability to read and use math notation and graphical representations
+
+::: {.fragment}
+### Plan for today
+
+- solve and discuss exercises
+- questions from self-test, then other topics you want to discuss
+
+These slides complement the math self-test on [Desmos](https://student.desmos.com/?prepopulateCode=jzn6eu) and the [math review handout](https://shochguertel.github.io/mathminor/)
+:::
+
+## Graphing functions
+
+::: {.incremental}
+1. Consider the function $f(x) = 2x-1$
+1. Goal: plot the values $f(x)$ takes for different values of $x$
+1. Horizontal axis: $x$, vertical axis: $f(x)$
+1. For example, for $x=0$, $f(0) = 2*0-1 = -1$
+1. For $x=1$, $f(1) = 2*1-1 = 1$
+1. Looking at the function, we can tell it's linear -- if $x$ increases by 1, $f(x)$ always increases by 2
+1. So we can take two points and draw a straight line through them
+:::
+
+## Graphing functions
+
+```{r}
+p <- tibble(x = c(0, 1),
+       y = 2*x-1) |> 
+  ggplot(aes(x = x, y = y)) +
+  geom_vline(xintercept = 0) +
+  geom_hline(yintercept = 0) +
+  geom_point(size = 3) +
+  coord_cartesian(xlim = c(-1, 3), ylim = c(-4, 4)) +
+  labs(x = "x", y = "f(x)", title = "f(x) = 2x-1")
+p
+```
+
+## Graphing functions
+
+```{r}
+p +
+  geom_abline(intercept = -1, slope = 2, color = "steelblue", linewidth = 1.5)
+```
+
+## Graphing functions (quadratic)
+
+::: {.incremental}
+1. Example: $f(x) = (x-2)^2+3$
+1. Quadratic functions are drawn as parabolas
+1. To draw the function, find the vertex, and decide if it is a minimum or maximum
+1. Finding the vertex: 
+    1. given $f(x) = a(x-h)^2+k$, the vertex is at $(h,k)$
+    1. or calculate the derivative and set it to 0: 
+        1. given $f(x) = ax^2+bx+c$, $f'(x)=2ax+b$
+        1. $2ax+b=0$ gives the $x$-coordinate of the vertex
+        1. use the original $f(x)$ to find the $y$-coordinate
+1. The sign of the $x^2$ term tells you if the parabola opens up (+) or down (-)
+1. Calculating some more points to each side of the vertex helps to draw the parabola, e.g. for $x=0$, $f(0) = (0-2)^2+3 = 7$
+:::
+    
+## Graphing functions (quadratic)
+
+```{r}
+tibble(x = seq(-1, 5, 0.1),
+       y = (x-2)^2+3) |> 
+  ggplot(aes(x = x, y = y)) +
+  geom_vline(xintercept = 0) +
+  geom_hline(yintercept = 0) +
+  geom_line(linewidth = 1.5, color = "steelblue") +
+  geom_point(data = tibble(x = c(0,1,2,4), y = c(7,4,3,7)), size = 3) +
+  coord_cartesian(xlim = c(-1, 5), ylim = c(-1, 10)) +
+  labs(x = "x", y = "f(x)", title = "f(x) = (x-2)^2+3")
+```
+## Convexity and concavity
+
+::: {.columns}
+::: {.column width="40%"}
+1. A function is *convex* if it lies on or below the line connecting any two points on the function
+1. A function is *concave* if it lies on or above the line connecting any two points on the function
+1. A function is *strictly convex (concave)* if it lies strictly below (above) the line connecting any two points on the function
+:::
+::: {.column width="60%"}
+```{r,fig.height=10}
+d <- tibble(x = seq(-2, 2, 0.1),
+       `x^2` = x^2,
+       `2x+1` = 2*x+1,
+       `log(x)` = log(x),
+       `3cos(2x)` = 3*cos(2*x)) |>
+  pivot_longer(-x)
+ggplot(d, aes(x, value, color = name)) +
+  geom_hline(yintercept = 0) +
+  geom_vline(xintercept = 0) +
+  geom_line(linewidth = 1.5) +
+  geom_point(data = filter(d, round(x, 1) %in% c(0.1, 1.5)), size = 3) +
+  geom_path(data = filter(d, round(x, 1) %in% c(0.1, 1.5)), linetype = "dashed", linewidth = 1.25) +
+  labs(x = "x", y = "f(x)") +
+  theme(legend.title = element_blank(),
+        legend.position = c(0.2, 0.85))
+```
+:::
+:::
+
+## Distributions
+
+1. A distribution describes how likely different values of a variable are
+1. A probability distribution function (pdf) gives the probability of each value
+1. The cumulative distribution function (cdf) gives the probability of a value being less than or equal to a certain value
+
+## Distributions
+
+Consider the data:
+```{r}
+d <- tibble(x = c(1,1,3,4,5,5,5,6,9,10))
+cat(paste0("(", paste(d$x, collapse = ", "), ")"))
+```
+
+Plot the distribution of the data:
+```{r}
+d |> 
+  ggplot(aes(x = x)) +
+  geom_histogram(binwidth = 1, fill = "steelblue", color = "black") +
+  labs(x = "x", y = "Frequency") +
+  scale_x_continuous(breaks = seq(0, 10, 1))
+```
+
+## Distributions
+
+Consider the data:
+```{r}
+cat(paste0("(", paste(d$x, collapse = ", "), ")"))
+```
+
+Rescale the frequencies to get a probability distribution:
+```{r}
+d |> 
+  ggplot(aes(x = x)) +
+  geom_histogram(aes(y = after_stat(density)), binwidth = 1, fill = "steelblue", color = "black") +
+  labs(x = "x", y = "Density") +
+  scale_x_continuous(breaks = seq(0, 10, 1))
+```
+
+## Distributions
+
+Consider the data, assuming it comes from a continuous distribution (i.e. any value is possible):
+```{r}
+cat(paste0("(", paste(d$x, collapse = ", "), ")"))
+```
+
+Smooth out the histogram to get a density plot:
+```{r}
+d |> 
+  ggplot(aes(x = x)) +
+  geom_histogram(aes(y = after_stat(density)), binwidth = 1, fill = "steelblue", color = "black") +
+  geom_density(bw = 0.5, fill = "turquoise", color = "black", alpha = 0.5) +
+  labs(x = "x", y = "Density") +
+  scale_x_continuous(breaks = seq(0, 10, 1))
+```
+
+## Distributions
+
+Consider the data, assuming it comes from a continuous distribution (i.e. any value is possible):
+```{r}
+cat(paste0("(", paste(d$x, collapse = ", "), ")"))
+```
+
+The area of the density plot is 1, meaning that the probability of the variable taking any value within the full range is 1:
+```{r}
+d |> 
+  ggplot(aes(x = x)) +
+  geom_density(bw = 0.5, fill = "turquoise", color = "black") +
+  labs(x = "x", y = "Density") +
+  scale_x_continuous(breaks = seq(0, 10, 1))
+```
+
+## Distributions
+
+At each value of $x$, the CDF gives the area under the density curve to the left of $x$.
+
+Using the discrete example from above, adding up the area of the histogram bars up to $x$ gives the height of the CDF at each value of $x$:
+
+```{r}
+d |> 
+  ggplot(aes(x = x)) +
+  geom_histogram(aes(y = after_stat(density)), binwidth = 1,
+                 fill = "steelblue", color = "black") +
+  stat_ecdf(color = "firebrick1", linewidth = 1.5) +
+  labs(x = "x", y = "Density") +
+  scale_x_continuous(breaks = seq(0, 10, 1)) +
+  scale_y_continuous(breaks = seq(0, 1, 0.1)) +
+  labs(y = "PDF / CDF")
+```
