@@ -24,6 +24,15 @@ library(tidyverse)
 theme_set(theme_minimal(base_size = 16))
 ```
 
+##
+
+::: {.r-fit-text}
+Please open the workshop handout at
+:::
+::: {.r-fit-text}
+[tinarozsos.github.io/CIW2024/handout](https://tinarozsos.github.io/CIW2024/handout)
+:::
+
 # Income inequality around the world
 
 ## 
