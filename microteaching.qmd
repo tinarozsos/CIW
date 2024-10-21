@@ -104,7 +104,8 @@ p <- bind_rows(
                      minor_breaks = NULL) +
   scale_y_continuous(breaks = c(0, .1, .33, .4, .66, 1), labels = scales::percent,
                      minor_breaks = NULL) +
-  theme(aspect.ratio = 1)
+  theme(aspect.ratio = 1,
+        plot.margin = margin(0.5, 0.5, 0.5, 0.5, "cm"))
 p
 ```
 :::
@@ -138,17 +139,21 @@ p +
 
 ## Try it for yourself
 
-Use [this](https://www.econgraphs.org/projects/core/unit1/gini.html) Gini coefficient calculator for a sample population with
+Use the Gini coefficient calculator in your handout to find the Gini coefficient of a sample population where
 
-- $n=1000$ people (adjust slider on right)
+- $n=1000$ people (adjust slider)
 - 800 people earn 50K (adjust the bars on the left figure)
 - 200 people earn 200K (adjust the bars on the left figure)
 
 ::: {.incremental}
 1. What is the Gini coefficient for this population?
 2. If the 200 people earn 100K instead of 200K, will the Gini coefficient increase or decrease?
-3. What if instead 600 people earn 50K and 400 people earn 200K? Why?
+<!-- 3. What if instead 600 people earn 50K and 400 people earn 200K? Why? -->
 :::
+
+## 
+
+<iframe src="https://www.econgraphs.org/projects/core/unit1/gini.html" loading="lazy" style="width: 100%; height: 700px; border: 0px none;" allow="web-share; clipboard-write"></iframe>
 
 # Income inequality around the world (again)
 
