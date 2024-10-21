@@ -1,0 +1,163 @@
+---
+title: "Measuring inequality with the Gini coefficient"
+subtitle: "SBE PhD microteaching session"
+author: "Tina Rozsos"
+institute: "VU Amsterdam"
+date: "2024-11-04"
+date-format: long
+format:
+  revealjs: 
+    theme: default
+    logo: assets/VU_logo.png
+    transition: fade
+    controls: true
+    embed-resources: false
+    smaller: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE, error = FALSE,
+                      fig.height = 6, fig.width = 6, fig.align = "center")
+```
+```{r}
+library(tidyverse)
+theme_set(theme_minimal(base_size = 16))
+```
+
+# Income inequality around the world
+
+## 
+
+<iframe src="https://ourworldindata.org/grapher/income-share-distribution-before-tax-wid?tab=chart" loading="lazy" style="width: 100%; height: 600px; border: 0px none;" allow="web-share; clipboard-write"></iframe>
+
+# A measure of inequality: the Gini coefficient
+
+## What is the Gini coefficient?
+
+- Measures inequality in any distribution
+- $G=0$ means perfect equality (everyone has the same income)
+- $G=1$ means perfect inequality (one person has all the income)
+
+## How to calculate the Gini coefficient?
+
+1. Sort incomes from lowest to highest
+2. Plot the cumulative share of income against the cumulative share of the population (Lorenz curve)
+
+::: {.fragment}
+Example income distribution in a country with 3 people:
+
+```{r}
+d <- tibble(person = c("X", "Y", "Z"),
+       income = c(100, 600, 300),
+       rank = c(1, 3, 2))
+knitr::kable(d)
+```
+:::
+
+## How to calculate the Gini coefficient?
+
+::: {.columns}
+::: {.column width="50%"}
+Cumulative income shares:
+
+```{r}
+d |> 
+  arrange(rank) |> 
+  mutate(`cumulative<br>income` = cumsum(income)) |> 
+knitr::kable()
+```
+:::
+
+::: {.column width="50%"}
+::: {.fragment}
+```{r}
+labs <- tibble(
+  x = c(0.5, 0.4, 0.7),
+  y = c(0.54, 0.3, 0.25),
+  label = c("Line of perfect equality", "A", "B"),
+  angle = c(45, 0, 0)
+)
+
+p <- bind_rows(
+  tibble(rank = 0, income = 0), d) |> 
+  arrange(rank) |> 
+  mutate(cum_inc = cumsum(income) / sum(income),
+         cum_pop = rank / max(rank)) |> 
+  ggplot(aes(x = cum_pop, y = cum_inc)) +
+  geom_abline(intercept = 0, slope = 1, linetype = "dashed") +
+  geom_line() +
+  geom_point(size = 2) +
+  geom_point(aes(y = cum_pop), size = 2, shape = 21, fill = "white") +
+  geom_text(data = labs[1,], aes(x = x, y = y, label = label), angle = labs$angle[1]) +
+  labs(x = "Cumulative share of population", y = "Cumulative share of income") +
+  coord_cartesian(expand = FALSE) +
+  scale_x_continuous(breaks = c(0, .33, .66, 1), labels = scales::percent,
+                     minor_breaks = NULL) +
+  scale_y_continuous(breaks = c(0, .1, .33, .4, .66, 1), labels = scales::percent,
+                     minor_breaks = NULL) +
+  theme(aspect.ratio = 1)
+p
+```
+:::
+:::
+:::
+
+## How to calculate the Gini coefficient?
+::: {.columns}
+::: {.column width="50%"}
+Cumulative income shares:
+
+```{r}
+d |> 
+  arrange(rank) |> 
+  mutate(`cumulative<br>income` = cumsum(income)) |> 
+knitr::kable()
+```
+
+$$G = \frac{A}{A+B}$$
+:::
+::: {.column width="50%"}
+```{r}
+p +
+  geom_ribbon(aes(ymin = cum_inc, ymax = cum_pop), fill = "steelblue", alpha = 0.75) +
+  geom_area(fill = "grey", alpha = 0.75) +
+  geom_text(data = labs, aes(x = x, y = y, label = label), angle = labs$angle)
+  
+```
+:::
+:::
+
+## Try it for yourself
+
+Use [this](https://www.econgraphs.org/projects/core/unit1/gini.html) Gini coefficient calculator for a sample population with
+
+- $n=1000$ people (adjust slider on right)
+- 800 people earn 50K (adjust the bars on the left figure)
+- 200 people earn 200K (adjust the bars on the left figure)
+
+::: {.incremental}
+1. What is the Gini coefficient for this population?
+2. If the 200 people earn 100K instead of 200K, will the Gini coefficient increase or decrease?
+3. What if instead 600 people earn 50K and 400 people earn 200K? Why?
+:::
+
+# Income inequality around the world (again)
+
+## 
+
+<iframe src="https://ourworldindata.org/grapher/economic-inequality-gini-index?time=latest&tab=map" loading="lazy" style="width: 100%; height: 600px; border: 0px none;" allow="web-share; clipboard-write"></iframe>
+
+## Take a minute to reflect
+
+::: {.absolute top=200 style="font-size: 40px;"}
+- Do you find the Gini coefficient a good tool for measuring income inequality?
+:::
+::: {.absolute top=400 style="font-size: 40px;"}
+- Do you see any limitations to the Gini coefficient?
+:::
+
+## 
+
+::: {.r-fit-text .center .absolute top=200}
+Thank you!
+:::

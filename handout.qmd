@@ -1,0 +1,28 @@
+---
+title: "Measuring inequality with the Gini coefficient"
+subtitle: "SBE PhD microteaching session"
+author: "Tina Rozsos"
+institute: "VU Amsterdam"
+date: "2024-11-04"
+date-format: long
+format:
+  revealjs: 
+    theme: default
+    logo: assets/VU_logo.png
+    transition: fade
+    controls: true
+    embed-resources: false
+    smaller: true
+---
+
+## 
+
+<iframe src="https://ourworldindata.org/grapher/income-share-distribution-before-tax-wid?tab=chart" loading="lazy" style="width: 100%; height: 600px; border: 0px none;" allow="web-share; clipboard-write"></iframe>
+
+## 
+
+<iframe src="https://www.econgraphs.org/projects/core/unit1/gini.html" loading="lazy" style="width: 100%; height: 700px; border: 0px none;" allow="web-share; clipboard-write"></iframe>
+
+## 
+
+<iframe src="https://ourworldindata.org/grapher/economic-inequality-gini-index?time=latest&tab=map" loading="lazy" style="width: 100%; height: 600px; border: 0px none;" allow="web-share; clipboard-write"></iframe>
