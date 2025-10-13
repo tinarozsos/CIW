@@ -114,8 +114,10 @@ tibble(x = seq(-1, 5, 0.1),
 
 ::: {.columns}
 ::: {.column width="40%"}
-1. A function is *convex* if it lies on or below the line connecting any two points on the function $f''(x) \ge 0$
-1. A function is *concave* if it lies on or above the line connecting any two points on the function $f''(x) \le 0$
+1. A function is *convex* if it lies on or below the line connecting any two points on the function
+    - Analytical definition for twice-differentiable functions: $f''(x) \ge 0$ for all $x$
+1. A function is *concave* if it lies on or above the line connecting any two points on the function
+    - Analytical definition for twice-differentiable functions: $f''(x) \le 0$ for all $x$
 1. A function is *strictly convex (concave)* if it lies strictly below (above) the line connecting any two points on the function
 :::
 ::: {.column width="60%"}
@@ -379,7 +381,7 @@ tibble(q = seq(0, 10, 0.1), pi = 10 * q - q^2) |>
 ## Distributions
 
 1. A distribution describes how likely different values of a variable are
-1. A probability distribution function (pdf) gives the probability of each value
+1. A probability distribution function (pdf) gives the probability of each value (in discrete case; in continuous case, the pdf is a density: area under the curve gives probabilities over intervals)
 1. The cumulative distribution function (cdf) gives the probability of a value being less than or equal to a certain value
 
 ## Distributions
