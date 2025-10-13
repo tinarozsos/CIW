@@ -2,7 +2,7 @@
 title: "CIW Math refresher"
 author: "Tina Rozsos"
 institute: "VU Amsterdam"
-date: "2025-10-11"
+date: "2025-10-15"
 date-format: long
 format:
   revealjs:
