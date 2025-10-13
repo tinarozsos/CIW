@@ -16,11 +16,18 @@ format:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE, error = FALSE)
+knitr::opts_chunk$set(
+  echo = FALSE,
+  message = FALSE,
+  warning = FALSE,
+  error = FALSE
+)
 ```
+
 ```{r}
 library(tidyverse)
-theme_set(theme_minimal(base_size = 16))
+library(patchwork)
+theme_set(theme_minimal(base_size = 20))
 ```
 
 ## Math and stats refresher
@@ -107,30 +114,267 @@ tibble(x = seq(-1, 5, 0.1),
 
 ::: {.columns}
 ::: {.column width="40%"}
-1. A function is *convex* if it lies on or below the line connecting any two points on the function
-1. A function is *concave* if it lies on or above the line connecting any two points on the function
+1. A function is *convex* if it lies on or below the line connecting any two points on the function $f''(x) \ge 0$
+1. A function is *concave* if it lies on or above the line connecting any two points on the function $f''(x) \le 0$
 1. A function is *strictly convex (concave)* if it lies strictly below (above) the line connecting any two points on the function
 :::
 ::: {.column width="60%"}
 ```{r,fig.height=10}
-d <- tibble(x = seq(-2, 2, 0.1),
-       `x^2` = x^2,
-       `2x+1` = 2*x+1,
-       `log(x)` = log(x),
-       `3cos(2x)` = 3*cos(2*x)) |>
+d <- tibble(
+  x = seq(-2, 2, 0.1),
+  `x^2: (strictly) convex` = x^2,
+  `2x+1: both convex and concave` = 2 * x + 1,
+  `log(x): (strictly) concave` = log(x),
+  `3cos(2x): neither convex nor concave` = 3 * cos(2 * x)
+) |>
   pivot_longer(-x)
 ggplot(d, aes(x, value, color = name)) +
   geom_hline(yintercept = 0) +
   geom_vline(xintercept = 0) +
   geom_line(linewidth = 1.5) +
   geom_point(data = filter(d, round(x, 1) %in% c(0.1, 1.5)), size = 3) +
-  geom_path(data = filter(d, round(x, 1) %in% c(0.1, 1.5)), linetype = "dashed", linewidth = 1.25) +
+  geom_path(
+    data = filter(d, round(x, 1) %in% c(0.1, 1.5)),
+    linetype = "dashed",
+    linewidth = 1.25
+  ) +
   labs(x = "x", y = "f(x)") +
-  theme(legend.title = element_blank(),
-        legend.position = c(0.2, 0.85))
+  theme(legend.title = element_blank(), legend.position = c(0.2, 0.95))
 ```
 :::
 :::
+
+## Monotonicity
+
+::: {.columns}
+::: {.column width="40%"}
+1. A function is *monotonically increasing* if $f(x_2) \ge f(x_1)$ whenever $x_2 > x_1$
+1. A function is *monotonically decreasing* if $f(x_2) \le f(x_1)$ whenever $x_2 > x_1$
+1. *Strictly* monotonic: inequalities are strict ($>$ or $<$)
+1. Monotonicity is about the direction of change, not curvature
+:::
+::: {.column width="60%"}
+```{r, fig.height=7}
+d <- tibble(
+  x = seq(-2, 2, 0.01),
+  `Strictly monotonic, continuous` = 2 * x + 1,
+  `Monotonic, continuous` = x^3/3,
+  `Non-monotonic, continuous` = 2*sin(2*x),
+  `Strictly monotonic, non-continuous` = ifelse(x == 1, NA, ifelse(x > 1, -x - 1, -x ))
+) |>
+  pivot_longer(-x, names_to = "Monotonicity")
+
+ggplot(d, aes(x, value, color = Monotonicity)) +
+  geom_hline(yintercept = 0) +
+  geom_vline(xintercept = 0) +
+  geom_line(linewidth = 1.5) +
+  labs(x = "x", y = "f(x)", color = "Function", linetype = "Function") +
+  theme(legend.position = c(0.25, 0.85))
+```
+:::
+:::
+
+## Functions in economics
+::: {.columns}
+::: {.column width="70%"}
+In economics, functions rarely use $x$ and $y$
+
+Instead: *economic variables*
+
+E.g. price $P$, quantity demand $Q_D$
+
+::: {.incremental}
+- Axes: price $P$ on vertical axis, quantity $Q_D$ on horizontal axis
+    - rearrange equations for plotting:
+    - $P = 20 - \frac{1}{5} Q_D$
+    - $P = -\frac{20}{3} + \frac{1}{3} Q_S$
+- *Movement along* a curve: when $P$ goes up, $Q_D$ goes down
+- *Shift of* a curve: the relationship between $P$ and $Q_D$ changes
+    - e.g. income $Y$ increases $\to$ demand curve shifts right; more demand at any price
+:::
+:::
+::: {.column width="30%"}
+
+Demand: $Q_D = 100 - 5P$
+
+Supply: $Q_S = 20 + 3P$
+
+```{r, fig.height=14}
+demand <- tibble(P = seq(0, 20, 0.5)) |>
+  mutate(Q = 100 - 5*P,
+         Q_shift = 110 - 5*P)
+supply <- tibble(P = seq(0, 20, 0.5)) |>
+  mutate(Q = 20 + 3*P)
+ggplot(demand, aes(x = Q, y = P)) +
+  geom_line(data = supply, aes(y = P), color = "firebrick", linewidth = 1.5) +
+  geom_line(aes(y = P), color = "steelblue", linewidth = 1.5) +
+  geom_line(aes(x = Q_shift, y = P), color = "steelblue", linewidth = 1.5, linetype = "dashed") +
+  labs(x = "Quantity (Q)", y = "Price (P)") +
+  coord_cartesian(xlim = c(0,120), ylim = c(0,20)) +
+  theme(axis.text = element_text(size = 30),
+  axis.title = element_text(size = 38))
+```
+
+:::
+:::
+
+## Calculating areas
+
+::: {.columns}
+::: {.column width="70%"}
+Areas are often needed to compute surplus or costs
+
+- Area of a triangle: $\frac{1}{2} \times \text{base} \times \text{height}$
+- Area of a trapezoid: $\frac{1}{2} \times (\text{base}_1 + \text{base}_2) \times \text{height}$
+
+Example: consumer surplus under a linear demand curve
+
+$\text{Consumer Surplus} = \frac{1}{2} \times (50-0) \times (20-10) = 250$
+:::
+::: {.column width="30%"}
+```{r, fig.height = 14}
+P_star <- 10; Q_star <- 50
+CS <- tibble(Pmax = seq(10, 20, 0.5),
+             Q = 100 - 5*Pmax,
+             Pmin = P_star)
+
+ggplot() +
+  geom_abline(intercept = 100/5, slope = -1/5, color = "steelblue", linewidth = 1.5) +
+  geom_hline(yintercept = P_star, linetype = "dashed", color = "black") +
+  geom_ribbon(data = CS, aes(ymin = Pmin, ymax = Pmax, x = Q), fill = "lightblue", alpha = 0.5) +
+  labs(x = "Quantity", y = "Price", title = "Consumer surplus = triangle area") +
+  coord_cartesian(xlim = c(0,100), ylim = c(0,25)) +
+  theme(axis.text = element_text(size = 30),
+  axis.title = element_text(size = 38))
+```
+:::
+:::
+
+## Logarithms
+
+```{r}
+df <- tibble(x = seq(0, 10, 0.1), y_lin = 2 * x + 1, y_exp = 2^x)
+
+p1 <- ggplot(df, aes(x = x, y = y_lin)) +
+  geom_line(color = "steelblue", linewidth = 1.5) +
+  annotate(
+    "text",
+    x = 8,
+    y = 7,
+    label = "Linear growth:\nadditive increase in y\nper unit increase in x",
+    size = 4,
+    color = "steelblue"
+  ) +
+  labs(title = expression("y = 2*x + 1 (linear scale)"), x = "x", y = "y") +
+  theme(plot.title = element_text(size = 14),
+  axis.title = element_text(size = 10),
+  axis.text = element_text(size = 10))
+
+p2 <- ggplot(df, aes(x = x, y = y_exp)) +
+  geom_line(color = "firebrick", linewidth = 1.5) +
+  annotate(
+    "text",
+    x = 3,
+    y = 500,
+    label = "Exponential growth:\nmultiplicative increase in y\nper unit increase in x (doubling)",
+    size = 4,
+    color = "firebrick"
+  ) +
+  labs(title = expression("y = 2^x (linear scale)"), x = "x", y = "y") +
+  theme(plot.title = element_text(size = 14),
+  axis.title = element_text(size = 10),
+  axis.text = element_text(size = 10))
+
+p3 <- ggplot(df, aes(x = x, y = y_lin)) +
+  geom_line(color = "steelblue", linewidth = 1.5) +
+  scale_y_log10() +
+  annotate(
+    "text",
+    x = 8,
+    y = 5,
+    label = "Linear growth on log scale:\nfocus on small values",
+    size = 4,
+    color = "steelblue"
+  ) +
+  labs(title = expression("y = 2*x + 1 (log scale)"), x = "x", y = "log(y)") +
+  theme(plot.title = element_text(size = 14),
+  axis.title = element_text(size = 10),
+  axis.text = element_text(size = 10))
+
+p4 <- ggplot(df, aes(x = x, y = y_exp)) +
+  geom_line(color = "firebrick", linewidth = 1.5) +
+  scale_y_log10() +
+  annotate(
+    "text",
+    x = 3,
+    y = 200,
+    label = "Exponential growth looks\nlinear on log scale",
+    size = 4,
+    color = "firebrick"
+  ) +
+  labs(title = expression("y = 2^x (log scale)"), x = "x", y = "log(y)") +
+  theme(plot.title = element_text(size = 14),
+  axis.title = element_text(size = 10),
+  axis.text = element_text(size = 10))
+
+(p1 | p2) / (p3 | p4)
+```
+
+## Elasticities
+
+::: {.incremental}
+- Elasticity tells how sensitive one variable is to another
+- E.g. “If price goes up 1%, quantity demanded goes down by 0.5%”
+- Unit-free, so we can compare across contexts (e.g. price vs income effects)
+:::
+
+::: {.fragment}
+
+```{r}
+tibble(Q = seq(1, 8, 0.5)) |>
+  mutate(P = 100 * Q^(-1)) |>
+  ggplot(aes(x = Q, y = P)) +
+  geom_line(linewidth = 1.5, color = "steelblue", linetype = "dashed") +
+  geom_segment(
+    data = NULL,
+    aes(x = 4, xend = 5, y = 25, yend = 20),
+    arrow = arrow(length = unit(0.2, "cm")),
+    color = "firebrick",
+    linewidth = 1.2
+  ) +
+  annotate(
+    "text",
+    x = 1.5,
+    y = 80,
+    label = "Demand",
+    color = "steelblue",
+    hjust = 0,
+    size = 6
+  ) +
+  labs(y = "Price", x = "Quantity")
+```
+:::
+
+## Optimization
+
+Optimization = finding maximum or minimum of a function
+
+1. Set derivative to zero: $f'(x)=0$
+1. Second derivative test:
+    - $f''(x) > 0$ → minimum
+    - $f''(x) < 0$ → maximum
+
+Example: profit maximization with $\pi(q) = 10q - q^2$
+
+$\pi'(q) = 10 - 2q = 0 \Rightarrow q^* = 5$
+
+```{r}
+tibble(q = seq(0, 10, 0.1), pi = 10 * q - q^2) |>
+  ggplot(aes(x = q, y = pi)) +
+  geom_line(linewidth = 1.5, color = "steelblue") +
+  geom_point(aes(x = 5, y = 25), color = "firebrick", size = 3) +
+  labs(x = "Quantity", y = "Profit", title = "Maximum profit at q = 5")
+```
 
 ## Distributions
 
@@ -142,7 +386,7 @@ ggplot(d, aes(x, value, color = name)) +
 
 Consider the data:
 ```{r}
-d <- tibble(x = c(1,1,3,4,5,5,5,6,9,10))
+d <- tibble(x = c(1, 1, 3, 4, 5, 5, 5, 6, 9, 10))
 cat(paste0("(", paste(d$x, collapse = ", "), ")"))
 ```
 
@@ -166,7 +410,12 @@ Rescale the frequencies to get a probability distribution:
 ```{r}
 d |>
   ggplot(aes(x = x)) +
-  geom_histogram(aes(y = after_stat(density)), binwidth = 1, fill = "steelblue", color = "black") +
+  geom_histogram(
+    aes(y = after_stat(density)),
+    binwidth = 1,
+    fill = "steelblue",
+    color = "black"
+  ) +
   labs(x = "x", y = "Density") +
   scale_x_continuous(breaks = seq(0, 10, 1))
 ```
@@ -182,7 +431,12 @@ Smooth out the histogram to get a density plot:
 ```{r}
 d |>
   ggplot(aes(x = x)) +
-  geom_histogram(aes(y = after_stat(density)), binwidth = 1, fill = "steelblue", color = "black") +
+  geom_histogram(
+    aes(y = after_stat(density)),
+    binwidth = 1,
+    fill = "steelblue",
+    color = "black"
+  ) +
   geom_density(bw = 0.5, fill = "turquoise", color = "black", alpha = 0.5) +
   labs(x = "x", y = "Density") +
   scale_x_continuous(breaks = seq(0, 10, 1))
@@ -213,8 +467,12 @@ Using the discrete example from above, adding up the area of the histogram bars 
 ```{r}
 d |>
   ggplot(aes(x = x)) +
-  geom_histogram(aes(y = after_stat(density)), binwidth = 1,
-                 fill = "steelblue", color = "black") +
+  geom_histogram(
+    aes(y = after_stat(density)),
+    binwidth = 1,
+    fill = "steelblue",
+    color = "black"
+  ) +
   stat_ecdf(color = "firebrick1", linewidth = 1.5) +
   labs(x = "x", y = "Density") +
   scale_x_continuous(breaks = seq(0, 10, 1)) +
