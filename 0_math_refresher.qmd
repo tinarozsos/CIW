@@ -2,10 +2,10 @@
 title: "CIW Math refresher"
 author: "Tina Rozsos"
 institute: "VU Amsterdam"
-date: "2024-10-16"
+date: "2025-10-11"
 date-format: long
 format:
-  revealjs: 
+  revealjs:
     theme: default
     logo: assets/VU_logo.png
     footer: "CIW Math refresher"
@@ -28,7 +28,7 @@ theme_set(theme_minimal(base_size = 16))
 ### Overall goal
 
 - Revise the math & stats concepts you need for the *Choices, Inequality, and Welfare* course
-- Focus is on 
+- Focus is on
   - intuitive understanding of concepts
   - ability to read and use math notation and graphical representations
 
@@ -57,7 +57,7 @@ These slides complement the math self-test on [Desmos](https://student.desmos.co
 
 ```{r}
 p <- tibble(x = c(0, 1),
-       y = 2*x-1) |> 
+       y = 2*x-1) |>
   ggplot(aes(x = x, y = y)) +
   geom_vline(xintercept = 0) +
   geom_hline(yintercept = 0) +
@@ -80,21 +80,21 @@ p +
 1. Example: $f(x) = (x-2)^2+3$
 1. Quadratic functions are drawn as parabolas
 1. To draw the function, find the vertex, and decide if it is a minimum or maximum
-1. Finding the vertex: 
+1. Finding the vertex:
     1. given $f(x) = a(x-h)^2+k$, the vertex is at $(h,k)$
-    1. or calculate the derivative and set it to 0: 
+    1. or calculate the derivative and set it to 0:
         1. given $f(x) = ax^2+bx+c$, $f'(x)=2ax+b$
         1. $2ax+b=0$ gives the $x$-coordinate of the vertex
         1. use the original $f(x)$ to find the $y$-coordinate
 1. The sign of the $x^2$ term tells you if the parabola opens up (+) or down (-)
 1. Calculating some more points to each side of the vertex helps to draw the parabola, e.g. for $x=0$, $f(0) = (0-2)^2+3 = 7$
 :::
-    
+
 ## Graphing functions (quadratic)
 
 ```{r}
 tibble(x = seq(-1, 5, 0.1),
-       y = (x-2)^2+3) |> 
+       y = (x-2)^2+3) |>
   ggplot(aes(x = x, y = y)) +
   geom_vline(xintercept = 0) +
   geom_hline(yintercept = 0) +
@@ -148,7 +148,7 @@ cat(paste0("(", paste(d$x, collapse = ", "), ")"))
 
 Plot the distribution of the data:
 ```{r}
-d |> 
+d |>
   ggplot(aes(x = x)) +
   geom_histogram(binwidth = 1, fill = "steelblue", color = "black") +
   labs(x = "x", y = "Frequency") +
@@ -164,7 +164,7 @@ cat(paste0("(", paste(d$x, collapse = ", "), ")"))
 
 Rescale the frequencies to get a probability distribution:
 ```{r}
-d |> 
+d |>
   ggplot(aes(x = x)) +
   geom_histogram(aes(y = after_stat(density)), binwidth = 1, fill = "steelblue", color = "black") +
   labs(x = "x", y = "Density") +
@@ -180,7 +180,7 @@ cat(paste0("(", paste(d$x, collapse = ", "), ")"))
 
 Smooth out the histogram to get a density plot:
 ```{r}
-d |> 
+d |>
   ggplot(aes(x = x)) +
   geom_histogram(aes(y = after_stat(density)), binwidth = 1, fill = "steelblue", color = "black") +
   geom_density(bw = 0.5, fill = "turquoise", color = "black", alpha = 0.5) +
@@ -197,7 +197,7 @@ cat(paste0("(", paste(d$x, collapse = ", "), ")"))
 
 The area of the density plot is 1, meaning that the probability of the variable taking any value within the full range is 1:
 ```{r}
-d |> 
+d |>
   ggplot(aes(x = x)) +
   geom_density(bw = 0.5, fill = "turquoise", color = "black") +
   labs(x = "x", y = "Density") +
@@ -211,7 +211,7 @@ At each value of $x$, the CDF gives the area under the density curve to the left
 Using the discrete example from above, adding up the area of the histogram bars up to $x$ gives the height of the CDF at each value of $x$:
 
 ```{r}
-d |> 
+d |>
   ggplot(aes(x = x)) +
   geom_histogram(aes(y = after_stat(density)), binwidth = 1,
                  fill = "steelblue", color = "black") +
