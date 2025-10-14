@@ -489,3 +489,7 @@ d |>
   scale_y_continuous(breaks = seq(0, 1, 0.1)) +
   labs(y = "PDF / CDF")
 ```
+
+## Desmos self-test
+
+Screens 14, 15, 16, 18, 24, 29, 40, 41
