@@ -2,13 +2,13 @@
 title: "CIW Tutorial 1"
 author: "Tina Rozsos"
 institute: "VU Amsterdam"
-date: "2024-11-01"
+date: "2025-10-31"
 date-format: long
 format:
-  revealjs: 
+  revealjs:
     theme: default
     logo: assets/VU_logo.png
-    footer: "Choices, Inequality, and Welfare"
+    footer: "CIW Math refresher"
     transition: fade
     controls: true
     embed-resources: true
@@ -16,10 +16,71 @@ format:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE, error = FALSE)
-```
-```{r}
-library(tidyverse)
-theme_set(theme_minimal(base_size = 16))
+knitr::opts_chunk$set(
+  echo = FALSE,
+  message = FALSE,
+  warning = FALSE,
+  error = FALSE
+)
 ```
 
+```{r}
+library(tidyverse)
+library(patchwork)
+theme_set(theme_minimal(base_size = 20))
+```
+
+## Introduction
+
+### Overall goal
+
+- Who I am
+- Purpose of these tutorials
+- Focus is on
+  - intuitive understanding of concepts
+  - ability to work with economic models, think about practical applications
+
+::: {.fragment}
+### Plan for today
+
+1. Solve and discuss exercises from first assignment
+1. Work on questions from extra materials
+1. Open floor
+:::
+
+## Assignment 1
+
+Discuss slides XXX
+
+## Attendance
+
+On Canvas go to Assignments > Week 1 - Attendance
+
+Get attendance grade by answering with the number written on the board
+
+## Extra Lecture materials
+
+### Work in groups of 2-4
+### On screen 2, choose option 1
+
+## CIW Extra Lecture 1 Screen 6
+
+::: {.incremental}
+1. Look at the utility function: why do you think it's called quasilinear?
+1. What can we say about the consumer's preferences for goods $x$ and $y$ when $p_x=p_y$?
+1. What if income changes but relative prices stay the same?
+1. What if relative prices change? (solve the assignment on screen)
+1. Would you reach a similar conclusion for the income and substitution effects for $y$ if the price of $y$ changed?
+:::
+
+## CIW Extra Lecture 1 Screen 8
+
+::: {.incremental}
+1. What is the relationship between gas and food on the graph?
+1. What happens if a person is given more gas but the same amount of food?
+1. Is this relationship realistic?
+1. What is the compensating variation for a change in gas price? (solve the assignment on screen)
+1. Would the CV increase, decrease, or stay the same if the goods were $imperfect$ complements?
+:::
+
+## Open floor
