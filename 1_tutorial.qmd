@@ -8,7 +8,7 @@ format:
   revealjs:
     theme: default
     logo: assets/VU_logo.png
-    footer: "CIW Math refresher"
+    footer: "Choices, Inequality, and Welfare"
     transition: fade
     controls: true
     embed-resources: true
@@ -50,7 +50,16 @@ theme_set(theme_minimal(base_size = 20))
 
 ## Assignment 1
 
-Discuss slides XXX
+### Grading notes
+
+- Each assignment is pass/fail graded (>50% correct = pass); worth 3.3% of final grade
+- On Thursday, assignments are frozen, graded, then reopened with feedback before tutorial
+- No extensions/resubmissions possible (Desmos can't do that)
+- Desmos assignments are partially auto-graded, but not perfectly
+    - If Desmos says you did not pass but Canvas says you did: **you pass**
+    - If Desmos says you passed but Canvas says you did not: **should not happen, email me**
+
+### Discuss slides 10--12, 15--16
 
 ## Attendance
 
@@ -58,7 +67,7 @@ On Canvas go to Assignments > Week 1 - Attendance
 
 Get attendance grade by answering with the number written on the board
 
-## Extra Lecture materials
+## Extra Lecture 1
 
 ### Work in groups of 2-4
 ### On screen 2, choose option 1
@@ -83,4 +92,4 @@ Get attendance grade by answering with the number written on the board
 1. Would the CV increase, decrease, or stay the same if the goods were $imperfect$ complements?
 :::
 
-## Open floor
+## Open floor - any questions?
