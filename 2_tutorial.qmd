@@ -46,7 +46,7 @@ knitr::opts_chunk$set(
     - If Desmos says you did not pass but Canvas says you did: **you pass**
     - If Desmos says you passed but Canvas says you did not: **should not happen, email me**
 
-### Discuss slides XXX
+### Discuss slides 11--12
 
 ## Attendance
 
