@@ -1,0 +1,95 @@
+---
+title: "CIW Tutorial 2"
+author: "Tina Rozsos"
+institute: "VU Amsterdam"
+date: "2025-11-07"
+date-format: long
+format:
+  revealjs:
+    theme: default
+    logo: assets/VU_logo.png
+    footer: "Choices, Inequality, and Welfare"
+    transition: fade
+    controls: true
+    embed-resources: true
+    smaller: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = FALSE,
+  message = FALSE,
+  warning = FALSE,
+  error = FALSE
+)
+```
+
+```{r}
+# library(tidyverse)
+# library(patchwork)
+# theme_set(theme_minimal(base_size = 20))
+```
+
+## Plan for today
+
+1. Discuss exercises from the second assignment
+1. Work on questions from extra materials
+1. Data analysis with Jamovi
+1. Open floor
+
+
+## Assignment 2
+
+### Reminder
+
+- Desmos assignments are partially auto-graded, but not perfectly
+    - If Desmos says you did not pass but Canvas says you did: **you pass**
+    - If Desmos says you passed but Canvas says you did not: **should not happen, email me**
+
+### Discuss slides XXX
+
+## Attendance
+
+On Canvas go to Assignments > Week 2 - Attendance
+
+Get attendance grade by answering with the number written on the board
+
+## Data analysis with Jamovi
+
+::: {.incremental}
+1. Download panamadata.xlsx from Canvas (Week 2 > Panama Consumption Data)
+1. Open Jamovi and read in the data
+1. Explore the data:
+    1. visualize the distribution of per-capita consumption (*cons_pc*)
+    2. visualize the distribution of log per-capita consumption (define new variable *lncons_pc*)
+1. What is the headcount ratio (fgt0)?
+    1. make new variable *belowz*: is person below povertyline?
+    1. get summary statistic of new variable: mean of *belowz* is HC
+:::
+
+## Extra Lecture 3 Screen 6-7
+
+### Comparing tax/transfer systems
+
+::: {.incremental}
+- What does a worker want from a tax/transfer system?
+- What does the government want?
+- Any other aspects you that should be considered when evaluating a tax/transfer system?
+:::
+
+::: {.fragment}
+What would be reasons for/against the following systems?
+:::
+
+::: {.incremental}
+1. Fixed hourly wage, no taxes or transfers
+1. <span style="color: red;">Flat income tax: 16.67% tax on total earnings</span>
+1. <span style="color: blue;">Universal basic income, funded by 50% flat income tax</span>
+1. <span style="color: green;">Earned-income tax credit based on hours worked</span>
+:::
+
+::: {.fragment}
+*If time permits:* start sketching out budget lines and optimal choices per system on Amplify
+:::
+
+## Open floor - any questions
