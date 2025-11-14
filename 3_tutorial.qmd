@@ -51,14 +51,16 @@ Get attendance grade by answering with the number written on the board
 
 Which question would you like to discuss?
 
-1. Labor supply: 
-  - budget constraints with change in wage rate
-  - decomposition of income and substitution effects
+1. Labor supply:
+   - budget constraints with change in wage rate
+   - decomposition of income and substitution effects
+
 2. Inequality, Poverty, and Development:
-  - calculating FGT poverty measures
-  - Lorenz curve and gini coefficient
+   - calculating FGT poverty measures
+   - Lorenz curve and gini coefficient
+
 3. Public goods:
-  - Drawing production possibility frontier and indifference curves
-  - Samuelson rule
+   - Drawing production possibility frontier and indifference curves
+   - Samuelson rule
 
 ## Open floor - any questions?
