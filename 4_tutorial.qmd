@@ -1,0 +1,74 @@
+---
+title: "CIW Tutorial 4"
+author: "Tina Rozsos"
+institute: "VU Amsterdam"
+date: "2025-11-21"
+date-format: long
+format:
+  revealjs:
+    theme: default
+    logo: assets/VU_logo.png
+    footer: "Choices, Inequality, and Welfare"
+    transition: fade
+    controls: true
+    embed-resources: true
+    smaller: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = FALSE,
+  message = FALSE,
+  warning = FALSE,
+  error = FALSE
+)
+```
+
+```{r}
+# library(tidyverse)
+# library(patchwork)
+# theme_set(theme_minimal(base_size = 20))
+```
+
+## Plan for today
+
+1. Reflection on the midterm
+1. Discuss exercises from the assignment
+1. Work on questions from the extra materials
+1. Open floor
+
+## Reflection on the midterm
+
+::: {.incremental}
+- How did it go?
+- Any questions/question types you would like to discuss?
+- How can the tutorials best help you prepare for the final exam?
+:::
+
+## Assignment 4
+
+### Discuss slides XXX
+
+## Attendance
+
+On Canvas go to Assignments > Week 4 - Attendance
+
+Get attendance grade by answering with the number written on the board
+
+## Extra materials 7
+
+### Best responses in Cournot duopoly
+
+### Screens 5-6
+
+Focus exclusively on the perspective of Firm B
+
+::: {.incremental}
+- If B could choose A's quantity, what would it choose?
+- If B knows that $Q_A=0$, how will B behave in response?
+- If A produces a large quantity, how will B respond?
+- Is B indifferent between the points on its best response curve? (answer the question on the left panel of screen 6)
+- Is a point on the best response curve better than a point outside it? (answer the question on the right panel of screen 6)
+:::
+
+## Open floor - any questions?
