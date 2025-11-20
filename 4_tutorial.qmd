@@ -47,7 +47,7 @@ knitr::opts_chunk$set(
 
 ## Assignment 4
 
-### Discuss slides XXX
+### Discuss slides 5, 10, 15
 
 ## Attendance
 
