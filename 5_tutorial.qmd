@@ -32,7 +32,7 @@ knitr::opts_chunk$set(
 
 ## Plan for today
 
-1. Reflection on the midterm
+1. Good job on the midterm!
 1. Replicate assignment questions in Jamovi; interpret results
 1. Open floor
 
