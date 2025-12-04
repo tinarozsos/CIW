@@ -1,0 +1,75 @@
+---
+title: "CIW Tutorial 6"
+author: "Tina Rozsos"
+institute: "VU Amsterdam"
+date: "2025-12-05"
+date-format: long
+format:
+  revealjs:
+    theme: default
+    logo: assets/VU_logo.png
+    footer: "Choices, Inequality, and Welfare"
+    transition: fade
+    controls: true
+    embed-resources: true
+    smaller: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = FALSE,
+  message = FALSE,
+  warning = FALSE,
+  error = FALSE
+)
+```
+
+```{r}
+# library(tidyverse)
+# library(patchwork)
+# theme_set(theme_minimal(base_size = 20))
+```
+
+## Plan for today
+
+1. Discuss assignment 6
+1. Work on questions from the extra materials
+1. Discuss a question from the mock final
+1. Open floor
+
+## Assignment 6
+
+### Discuss slides 5, 9, 14
+
+## Attendance
+
+On Canvas go to Assignments > Week 6 - Attendance
+
+Get attendance grade by answering with the number written on the board
+
+## Extra materials 11
+
+### Screens 7-9: Adverse selection, loads, mandates
+
+::: {.incremental}
+- What is a load in an insurance context?
+- How does load affect the marginal and average cost of insurance?
+- How does load affect the demand for insurance?
+- If the risk premium is constant in the population and the load is equal to the risk premium, what happens to the market for insurance? (sketch an example with demand and cost curves on screen 9; see screen 8 for further explanation)
+:::
+
+## Mock final
+
+Which question would you like to discuss?
+
+4. Regulation and Welfare
+   - draw demand, MC, MR for monopolist
+   - find equilibrium, consumer surplus, profit, deadweight loss in free and regulated markets
+
+5. Empirical Approaches and Returns to Education
+   - interpret regression output
+
+6. Social Insurance
+   - interpret model of substitution effects between UI and DI
+
+## Open floor - any questions?
